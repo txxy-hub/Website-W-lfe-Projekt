@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Der Wolf in Deutschland - Biologie, Geografie, Geschichte & Ethik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========== FARBEN & VARIABLE ========== */
+        :root {
+            --dark-green: #1f3d2b;
+            --forest-green: #2f5e3e;
+            --beige: #f4f1e8;
+            --anthracite: #2c2c2c;
+            --accent: #c77d2b;
+            --light-gray: #f9f8f5;
+            --text-dark: #2c2c2c;
+            --text-light: #666;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ========== GLOBALE STYLES ========== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--beige);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--dark-green);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; margin: 1.5rem 0 1rem; }
+        h3 { font-size: 1.5rem; margin: 1rem 0 0.5rem; }
+
+        p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        button {
+            padding: 14px 40px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            background: #a86a25;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(199, 125, 43, 0.3);
+        }
+
+        /* ========== SCROLL PROGRESS BAR ========== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 999;
+            transition: width 0.1s ease;
+            width: 0%;
+        }
+
+        /* ========== INTRO OVERLAY - Multi-Phase System ========== */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .intro-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-content {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        /* ========== INTRO PHASES ========== */
+        .intro-phase {
+            opacity: 0;
+            margin: 1.5rem 0;
+        }
+
+        /* Phase 1: School Project Info */
+        .intro-phase-1 {
+            animation: fadeInUp 1.2s ease forwards 0.3s;
+        }
+
+        .intro-subtitle {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+        }
+
+        .intro-subtext {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.2rem;
+        }
+
+        .intro-authors {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Phase 2: Project Topic */
+        .intro-phase-2 {
+            animation: fadeInUp 1.2s ease forwards 2s;
+            margin: 3rem 0;
+        }
+
+        .intro-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* Phase 3: Start Button */
+        .intro-phase-3 {
+            animation: fadeInUp 1s ease forwards 3.2s;
+            margin-top: 3rem;
+        }
+
+        .intro-btn {
+            background: var(--accent);
+            color: white;
+            padding: 18px 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 16px rgba(199, 125, 43, 0.3);
+        }
+
+        .intro-btn:hover {
+            background: #a86a25;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(199, 125, 43, 0.4);
+        }
+
+        .intro-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* ========== HEADER & NAVIGATION ========== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: transparent;
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(31, 61, 43, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        /* Wenn die Seite gesperrt ist */
+        html.locked, body.locked {
+            overflow: hidden !important;
+            touch-action: none;
+        }
+
+        .interaction-lock {
+            position: fixed;
+            inset: 0;
+            z-index: 4999;
+            background: transparent;
+            display: none;
+            pointer-events: none;
+        }
+
+        .interaction-lock.active {
+            display: block;
+            pointer-events: auto;
+        }
+
+        /* Allow footer and nav to be clickable even if overlay exists */
+        header, nav, footer, footer a {
+            pointer-events: auto !important;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            height: 100vh;
+            background: url('/images/fbce8b5f-8f14-451f-b4e3-16c2cd38b0ae.png') center/cover;
+            background-attachment: fixed;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            animation: fadeInScale 1.2s ease forwards;
+            max-width: 800px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+
+        .hero-content.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero button {
+            font-size: 1.1rem;
+            padding: 16px 50px;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        section.bio, section.ethics {
+            background: white;
+        }
+
+        section.geo, section.history {
+            background: var(--light-gray);
+        }
+
+        /* ========== SECTION LAYOUT (Text + Bild wechselweise) ========== */
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-content.reverse {
+            direction: rtl;
+        }
+
+        .section-content.reverse > * {
+            direction: ltr;
+        }
+
+        .section-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .section-image:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .section-text h2 {
+            margin-top: 0;
+            color: var(--dark-green);
+        }
+
+        .section-text p {
+            margin-bottom: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* ========== STECKBRIEF (Übersicht) ========== */
+        .steckbrief {
+            background: white;
+            border-left: 4px solid var(--accent);
+            padding: 2rem;
+            border-radius: 4px;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .steckbrief-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .steckbrief-item strong {
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ========== FAKTENKASTEN ========== */
+        .faktenkasten {
+            background: linear-gradient(180deg, rgba(47,94,62,0.03), rgba(244,241,232,0.6));
+            border-left: 4px solid var(--accent);
+            padding: 1.4rem;
+            margin: 1.5rem 0 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .faktenkasten h3 {
+            margin-bottom: 0.6rem;
+            color: var(--dark-green);
+            font-size: 1.05rem;
+        }
+
+        .faktenkasten ul {
+            list-style: disc;
+            padding-left: 1.25rem;
+            color: var(--text-dark);
+        }
+
+        /* ========== QUELLEN & FOOTER ========== */
+        .quellen {
+            background: #ffffff;
+            padding: 3rem 0 2rem;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+        }
+
+        /* ensure the section isn't hidden under the sticky header */
+        #quellen {
+            scroll-margin-top: 96px;
+        }
+
+        .quellen .quellen-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0;
+            display: grid;
+            gap: 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s ease, opacity 0.35s ease;
+            opacity: 0;
+        }
+
+        .quellen .quellen-list li {
+            padding: 1rem 1rem;
+            border-left: 4px solid rgba(47,94,62,0.06);
+            background: linear-gradient(180deg, rgba(244,241,232,0.6), rgba(255,255,255,0.9));
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .quellen .quellen-list li .source-title {
+            font-weight: 700;
+            color: var(--dark-green);
+            font-size: 1rem;
+        }
+
+        .quellen .quellen-list li .source-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .quellen .quellen-list li a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .quellen .quellen-list li a:hover {
+            text-decoration: underline;
+        }
+
+        /* expanded state when user requests to view the sources */
+        .quellen.expanded .quellen-list {
+            max-height: 1200px;
+            opacity: 1;
+        }
+
+        .quellen-toggle {
+            background: none;
+            border: 1px solid rgba(31,61,43,0.06);
+            color: var(--dark-green);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        footer {
+            background: #fff;
+            border-top: 1px solid #eee;
+            padding: 2rem 0;
+            color: var(--text-light);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--dark-green);
+            text-decoration: underline;
+        }
+
+        /* ========== ACCORDION ========== */
+        .accordion-btn {
+            width: 100%;
+            text-align: left;
+            padding: 1.2rem;
+            background: var(--light-gray);
+            border: 1px solid #e0e0e0;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            color: var(--dark-green);
+        }
+
+        .accordion-btn:hover {
+            background: var(--beige);
+            transform: translateX(4px);
+        }
+
+        .accordion-btn span {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-btn.active span {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: rgba(31, 61, 43, 0.03);
+            padding: 0 1.2rem;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+            padding: 1.2rem;
+        }
+
+        .accordion-content p {
+            margin-bottom: 0.8rem;
+            line-height: 1.8;
+        }
+
+        /* ========== STATISTIKEN ========== */
+        .stats-section {
+            background: var(--dark-green);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== TIMELINE (Geschichte) ========== */
+        .timeline-container {
+            position: relative;
+            overflow: auto;
+            padding: 2rem 0;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .timeline-item {
+            position: relative;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 250px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .timeline-year {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--dark-green);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ========== QUIZ MODAL ========== */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .quiz-modal.show {
+            display: block;
+        }
+
+        .quiz-content {
+            background: white;
+            margin: 40px auto;
+            padding: 3rem;
+            border-radius: 8px;
+            max-width: 700px;
+            width: 90%;
+            position: relative;
+            animation: slideInUp 0.4s ease-out;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .quiz-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: none;
+            color: #999;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-close:hover {
+            background: var(--light-gray);
+            color: var(--dark-green);
+        }
+
+        .quiz-progress {
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            margin: 1.5rem 0;
+        }
+
+        .question p {
+            font-weight: 600;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+        }
+
+        .question label {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: var(--light-gray);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .question label:hover {
+            background: var(--beige);
+            transform: translateX(4px);
+        }
+
+        .question input[type="radio"] {
+            margin-right: 1rem;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+        }
+
+        .quiz-btn-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-btn {
+            flex: 1;
+            background: var(--accent);
+            color: white;
+        }
+
+        .quiz-button-container {
+            text-align: center;
+            padding: 4rem 0;
+            background: var(--light-gray);
+        }
+
+        .quiz-start-btn {
+            background: var(--accent);
+            color: white;
+            padding: 18px 50px;
+            font-size: 1.1rem;
+        }
+
+        .result {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(199, 125, 43, 0.1);
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            text-align: center;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ========== SCROLL ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== KEYFRAME ANIMATIONEN ========== */
+        @keyframes introFadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes introContentFadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
+
+            header.scrolled {
+                padding: 0.8rem 0;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                height: 60vh;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .intro-headline {
+                font-size: 2.5rem;
+            }
+
+            .intro-line1, .intro-line2 {
+                font-size: 1rem;
+            }
+
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-content.reverse {
+                direction: ltr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+
+            .timeline-container {
+                justify-content: flex-start;
+                overflow-x: auto;
+                gap: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .timeline-item {
+                width: 220px;
+                flex-shrink: 0;
+            }
+
+            .steckbrief {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-content {
+                padding: 2rem 1.5rem;
+                margin: 20px auto;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+        }
+
+        /* ========== NEUE FRAGETYPEN ========== */
+        .question-type {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Multiple Select */
+        .question.multiple-select label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+        }
+
+        /* Wahr/Falsch */
+        .question.true-false label {
+            display: inline-block;
+            margin-right: 2rem;
+            width: auto;
+            padding: 0.8rem 1.5rem;
+            background: var(--light-gray);
+            border: 2px solid transparent;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .question.true-false label:hover {
+            background: var(--beige);
+            transform: translateX(4px);
+        }
+
+        /* Zuordnung (Matching) */
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .matching-column {
+            background: rgba(31, 61, 43, 0.02);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(31, 61, 43, 0.1);
+        }
+
+        .matching-column h4 {
+            font-weight: 600;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .matching-item {
+            padding: 0.8rem;
+            background: white;
+            margin-bottom: 0.8rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .matching-item select {
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* Kurzantwort */
+        .question.short-answer input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .question.short-answer input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(199, 125, 43, 0.1);
+        }
+
+        /* Feedback */
+        .question-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .question-feedback.correct {
+            background: rgba(52, 168, 83, 0.1);
+            color: #22863a;
+            border-left: 4px solid #34a853;
+            display: block;
+        }
+
+        .question-feedback.incorrect {
+            background: rgba(230, 46, 46, 0.1);
+            color: #d73a49;
+            border-left: 4px solid #e62e2e;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+
+            .question.true-false label {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
+
+            .section-text h2 {
+                margin-top: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== SCROLL PROGRESS BAR ========== -->
+    <div class="scroll-progress"></div>
+
+    <!-- ========== INTRO OVERLAY - Multi-Phase ========== -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-content">
+            <!-- Phase 1: School Project Info -->
+            <div class="intro-phase intro-phase-1">
+                <div class="intro-subtitle">Schulprojekt 2025/26</div>
+                <div class="intro-subtext">Klasse 10</div>
+                <div class="intro-authors">Erstellt von: Timmy Frank, Ben Günzel, Magdalena Rüger, Nick Victor Brauer</div>
+            </div>
+            
+            <!-- Phase 2: Project Topic -->
+            <div class="intro-phase intro-phase-2">
+                <h1 class="intro-headline">Projekt: Wölfe in Deutschland</h1>
+            </div>
+            
+            <!-- Phase 3: Start Button -->
+            <div class="intro-phase intro-phase-3">
+                <button class="intro-btn" id="introStartBtn" onclick="completeIntro()">Projekt starten</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== HEADER & NAVIGATION ========== -->
+    <header id="header">
+        <div class="header-content">
+            <a href="#" class="logo">🐺 WOLF</a>
+            <nav>
+                <ul>
+                    <li><a href="#biologie">Biologie</a></li>
+                    <li><a href="#geografie">Geografie</a></li>
+                    <li><a href="#geschichte">Geschichte</a></li>
+                    <li><a href="#ethik">Ethik</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- interaction overlay blocks all input/scroll until user clicks the discover button -->
+    <div id="interactionLock" class="interaction-lock" aria-hidden="true"></div>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Die Rückkehr der Wölfe</h1>
+            <p>Entdecke die faszinierende Geschichte der Wolfsrückkehr nach Deutschland</p>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.5rem;">
+                <small style="color:var(--text-light);">Quellen sind standardmäßig verborgen.</small>
+                <button class="quellen-toggle" onclick="toggleQuellenSection(event)">Quellen anzeigen / verbergen</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BIOLOGIE ========== -->
+    <section id="biologie" class="bio fade-in">
+        <div class="container">
+            <div class="section-content">
+                <div class="section-text">
+                    <h2>Biologie</h2>
+                    <p>Der Wolf ist ein faszinierendes Raubtier mit einer komplexen Sozialstruktur. In Deutschland dominieren Osteuropäische Wölfe, die in Rudeln von 5-8 Tieren leben.</p>
+                    
+                    <div class="steckbrief">
+                        <div class="steckbrief-item">
+                            <strong>Wissenschaftlicher Name</strong>
+                            <span>Canis lupus lupus</span>
+                        </div>
+                        <div class="steckbrief-item">
+                            <strong>Gewicht</strong>
+                            <span>35-45 kg (Mitteleuropa)</span>
+                        </div>
+                        <div class="steckbrief-item">
+                            <strong>Höchstgeschwindigkeit</strong>
+                            <span>60 km/h</span>
+                        </div>
+                        <div class="steckbrief-item">
+                            <strong>Tragzeit</strong>
+                            <span>ca. 65 Tage</span>
+                        </div>
+                        <div class="steckbrief-item">
+                            <strong>Lebenserwartung</strong>
+                            <span>10-13 Jahre</span>
+                        </div>
+                        <div class="steckbrief-item">
+                            <strong>Zähne</strong>
+                            <span>42 Zähne</span>
+                        </div>
+                    </div>
+
+                    <!-- Faktenkasten: Kurze, prominente Fakten zur Biologie -->
+                    <div class="faktenkasten fade-in" aria-label="Faktenkasten">
+                        <h3>Kurze Fakten</h3>
+                        <ul>
+                            <li><strong>Sozialstruktur:</strong> Rudel mit dominanten Paaren (Alpha-Paar).</li>
+                            <li><strong>Reviergröße:</strong> Rudelbeanspruchen oft 100–1000 km² je nach Nahrungsangebot.</li>
+                            <li><strong>Beute:</strong> Hauptsächlich Rehe und Hirsche; Jagd koordiniert im Rudel.</li>
+                        </ul>
+                    </div>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Sozialverhalten & Rudel
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>Rudelhierarchie:</strong> Dominantes Alpha-Paar (nicht so starr wie gedacht)</li>
+                            <li><strong>Fortpflanzung:</strong> Nur das Alpha-Paar pflanzt sich fort</li>
+                            <li><strong>Kommunikation:</strong> Heulen zur Fernkommunikation zwischen Rudelmitgliedern</li>
+                            <li><strong>Jagdstrategie:</strong> Koordiniert, taktisch, angepasst an die Beute</li>
+                        </ul>
+                    </div>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Ernährung & Jagdgewohnheiten
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>Beute:</strong> Rehe und Hirsche (2-3 kg Fleisch/pro Tag nötig)</li>
+                            <li><strong>Jagderfolg:</strong> Nur ~10% der Jagdversuche erfolgreich</li>
+                            <li><strong>Fressverhalten:</strong> Können bis zu 30% des Körpergewichts in einer Mahlzeit fressen</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section-image fade-in">
+                    <!-- Direktes Hotlink zum Wolfcenter-Bild gemäß Wunsch -->
+                    <picture>
+                        <img src="images/ChatGPT Image 19. Feb. 2026, 19_25_11.png" alt="Wolf Merkmale - annotiertes Bild" style="width:100%; height:auto; display:block; object-fit:cover;" loading="lazy">
+                    </picture>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STATISTIK BEREICH ========== -->
+    <section class="stats-section fade-in">
+        <div class="container">
+            <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Wölfe in Deutschland - Zahlen & Fakten</h2>
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <span class="stat-number" data-target="80">0</span>
+                    <span class="stat-label">Rudel (2024)</span>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number" data-target="1000">0</span>
+                    <span class="stat-label">Individuelle Wölfe</span>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number" data-target="1990">0</span>
+                    <span class="stat-label">Jahr der Rückkehr</span>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number" data-target="16">0</span>
+                    <span class="stat-label">Bundesländer besiedelt</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GEOGRAFIE ========== -->
+    <section id="geografie" class="geo fade-in">
+        <div class="container">
+            <div class="section-content reverse">
+                <div class="section-text">
+                    <h2>Geografie</h2>
+                    <p>Die geographische Geschichte der Wölfe in Deutschland ist geprägt von Ausrottung, Jahrzehnte ohne Wölfe, und einer beeindruckenden Rückkehr aus Osteuropa.</p>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Die Ausrottung vor 250 Jahren
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>1814–1820:</strong> Ausrottungsfeldzug von Sachsen über Schleswig-Holstein</li>
+                            <li><strong>1859–1891:</strong> Fortgesetzte Ausrottung in Baden-Württemberg, Niedersachsen, Rheinland-Pfalz, Saarland</li>
+                            <li><strong>Quellenwidersprüche:</strong> Unterschiedliche Daten für Brandenburg und Schleswig-Holstein</li>
+                            <li><strong>Ostgebiete:</strong> Am stärksten bejagt und früher ausgerottet</li>
+                        </ul>
+                    </div>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Verirrte Wölfe (1900–2000)
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>1904:</strong> Sachsen (Oberlausitz) — spätere Rückkehrregion</li>
+                            <li><strong>1948–1952:</strong> Mehrfach in Niedersachsen, Mecklenburg-Vorpommern</li>
+                            <li><strong>1952–1982:</strong> Zerstreute Sichtungen in Brandenburg, Bayern, Sachsen-Anhalt</li>
+                            <li><strong>1984–1996:</strong> Seltene Verirrungen aus Osteuropa</li>
+                            <li><strong>1990:</strong> Deutschlandweiter Schutzstatus → aber illegale Abschüsse folgen</li>
+                            <li><strong>1999:</strong> Letzte Verirrtung vor der Rückkehr</li>
+                        </ul>
+                    </div>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Die Rückkehr: Einauge und ihre Nachfahren
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p><strong>Der erste Wolf — Einauge (FT1):</strong></p>
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li>Kam 2000 von Westpolen über die Lausitzer Neiße</li>
+                            <li>Landete in der Oberlausitz (Sachsen)</li>
+                            <li>Erste erfolgreiche Reproduktion in Deutschland seit Ausrottung</li>
+                            <li>Bil dete das erste Rudel nach 1850</li>
+                            <li><strong>†</strong> 2013 durch illegalen Abschuss im Landkreis Görlitz</li>
+                        </ul>
+                        <p><strong>Bekannte Nachfahren & Wanderungen:</strong></p>
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>Alan (MT3):</strong> 2009 von Lausitz nach Belarus (1500 km)</li>
+                            <li><strong>Thy-Wolf:</strong> 2012 von Sachsen nach Dänemark (700 km Luftlinie)</li>
+                            <li>Fast alle Nachfahren siedelten Ost- und Norddeutschland</li>
+                        </ul>
+                    </div>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Aktueller Wolfbestand (2024/2025)
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>219 Rudel</strong> — 43 Paare — 14 Einzeltiere</li>
+                            <li><strong>~500 Wölfe</strong> insgesamt in Deutschland</li>
+                            <li><strong>Schwerpunkt:</strong> Östliche Bundesländer</li>
+                            <li><strong>Wachstum:</strong> Von 1 Wolf (2000) zu 500+ in nur ~25 Jahren</li>
+                            <li><strong>Frage:</strong> Der aktuellen Bestand wird in der kommenden Zeile konkretisiert (wird dir übermittelt)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section-image fade-in">
+                    <img src="images/ChatGPT Image 19. Feb. 2026, 19_31_26.png" alt="Wolf Verbreitungsgebiet Deutschland">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GESCHICHTE & TIMELINE ========== -->
+    <section id="geschichte" class="history fade-in">
+        <div class="container">
+            <h2>Geschichte</h2>
+            <p>Die Beziehung zwischen Mensch und Wolf ist komplex. Vom kompletten Ausgestorbensein zur heutigen Renaissance.</p>
+            
+            <!-- Bild-Platzhalter für den Geschichte-Bereich. Bitte Bild als images/geschichte.jpg ablegen oder per Hotlink ersetzen. -->
+            <div class="section-image fade-in" style="margin:1.5rem 0;">
+                <picture>
+                    <img src="images/ChatGPT Image 19. Feb. 2026, 19_39_38.png" alt="Geschichte - Bild" style="width:100%; height:auto; display:block; object-fit:cover; border-radius:8px;" loading="lazy">
+                </picture>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-year">1800</div>
+                    <div class="timeline-title">Die Ausrottung</div>
+                    <div class="timeline-description">Großflächige Jagd und Verfolgung. Der Wolf gilt als Schädling und Gefahr für Vieh.</div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-year">1950</div>
+                    <div class="timeline-title">Ausgestorben</div>
+                    <div class="timeline-description">In Deutschland sind Wölfe praktisch vollständig ausgerottet. Keine wilden Populationen mehr.</div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-year">2000</div>
+                    <div class="timeline-title">Die Rückkehr</div>
+                    <div class="timeline-description">Erste Wölfe wandern aus Polen ein. Der Wolf kehrt nach Deutschland zurück.</div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-year">Heute</div>
+                    <div class="timeline-title">Etabliert</div>
+                    <div class="timeline-description">Etwa 1000 Wölfe leben in Deutschland. Coexistenz ist möglich, aber auch herausfordernd.</div>
+                </div>
+            </div>
+
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+                Der Mensch und der Wolf - Eine komplexe Geschichte
+                <span>▼</span>
+            </button>
+            <div class="accordion-content">
+                <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                    <li><strong>Märchen & Mythologie:</strong> Wolf oft als "der Böse" → Rotkäppchen, Drei kleine Schweinchen</li>
+                    <li><strong>Mittelalter–19. Jh.:</strong> Systematische Verfolgung und Ausrottung</li>
+                    <li><strong>Heute:</strong> Wieder als Teil des Ökosystems anerkannt → erfolgreicher Naturschutz</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ETHIK ========== -->
+    <section id="ethik" class="ethics fade-in">
+        <div class="container">
+            <div class="section-content">
+                <div class="section-text">
+                    <h2>Ethik</h2>
+                    <p>Die Wolfsrückkehr stellt uns vor ethische Fragen: Welche Verantwortung haben wir gegenüber der Natur? Wie balancieren wir den Schutz von Wölfen mit Angst und wirtschaftlichen Interessen?</p>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Das moralische Recht des Wolfes
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>Ökologisches Recht:</strong> Natürlicherweise Teil unseres Ökosystems</li>
+                            <li><strong>Reparation:</strong> Nach Jahrhunderten der Verfolgung → Wiedergutmachung</li>
+                            <li><strong>Biodiversität:</strong> Erhöht Artenvielfalt (Beute wird zu Nahrung für andere)</li>
+                        </ul>
+                    </div>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Konflikt zwischen Mensch & Natur
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>Nutztierschäden:</strong> Schafhalter leiden unter Verlusten</li>
+                            <li><strong>Menschliche Ängste:</strong> Wolfsangriffe sind meist unbegründet, prägen aber die Debatte</li>
+                            <li><strong>Kernfrage:</strong> Ist Schaden ein Grund für Eliminierung?</li>
+                        </ul>
+                    </div>
+
+                    <button class="accordion-btn" onclick="toggleAccordion(this)">
+                        Lösungsansätze & Koexistenz
+                        <span>▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul style="list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0;">
+                            <li><strong>Schutzzäune:</strong> Effektiv, aber teuer (Staatliche Unterstützung nötig)</li>
+                            <li><strong>Herdenschutzhunde:</strong> Traditionelle, bewährte Methode → ohne Töten</li>
+                            <li><strong>Aufklärung:</strong> Bessere Info = höhere Akzeptanz</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section-image fade-in">
+                    <img src="images/ChatGPT Image 19. Feb. 2026, 19_41_55.png" alt="Wolf Ethik">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== QUIZ BUTTON ========== -->
+    <div class="quiz-button-container fade-in">
+        <button class="quiz-start-btn" onclick="openQuiz()">Teste dein Wolf-Wissen</button>
+    </div>
+
+    <!-- ========== ERWEITERTES WOLF-QUIZ MODAL ========== -->
+    <div id="quizModal" class="quiz-modal">
+        <div class="quiz-content">
+            <button class="quiz-close" onclick="closeQuiz()">&times;</button>
+            <h2>🐺 Umfassendes Wolf-Quiz</h2>
+            <p>Teste dein Wissen über Wölfe in Deutschland! Insgesamt 18 Fragen verschiedener Formate.</p>
+            
+            <div class="quiz-progress">
+                <div class="quiz-progress-bar" id="progressBar"></div>
+                <div id="questionCounter" style="text-align: center; font-size: 0.9rem; color: var(--text-light); margin-top: 0.5rem;">Frage <span id="currentQuestion">1</span> von 18</div>
+            </div>
+
+            <!-- BIOLOGIE - MULTIPLE CHOICE -->
+            <div class="question" data-type="multiple-choice" data-correct="1">
+                <p><strong>1. Wie viele Zähne hat ein Wolf?</strong></p>
+                <label><input type="radio" name="q1" value="0"> 32 Zähne</label>
+                <label><input type="radio" name="q1" value="1"> 42 Zähne</label>
+                <label><input type="radio" name="q1" value="0"> 52 Zähne</label>
+            </div>
+
+            <!-- BIOLOGIE - KURZANTWORT -->
+            <div class="question short-answer" data-type="short-answer" data-correct="Canis lupus lupus">
+                <p><strong>2. Wie heißt die biologische Unterart des Wolfes in Deutschland? (Wissenschaftlicher Name)</strong></p>
+                <input type="text" name="q2" placeholder="Bitte eingeben...">
+                <small style="color: var(--text-light);">Tipp: Start mit &quot;Canis&quot;</small>
+            </div>
+
+            <!-- BIOLOGIE - WAHR/FALSCH -->
+            <div class="question true-false" data-type="true-false" data-correct="1">
+                <p><strong>3. Die durchschnittliche Reviergröße eines Wolfsrudels liegt zwischen 100–1000 km².</strong></p>
+                <label><input type="radio" name="q3" value="1"> Wahr</label>
+                <label><input type="radio" name="q3" value="0"> Falsch</label>
+            </div>
+
+            <!-- BIOLOGIE - MULTIPLE SELECT -->
+            <div class="question multiple-select" data-type="multiple-select" data-correct="0,1">
+                <p><strong>4. Was gehört zur Hauptbeute von Wölfen in Deutschland? (Mehrfache Antworten möglich)</strong></p>
+                <label><input type="checkbox" name="q4" value="1"> Rehe</label>
+                <label><input type="checkbox" name="q4" value="1"> Hirsche</label>
+                <label><input type="checkbox" name="q4" value="0"> Bären</label>
+                <label><input type="checkbox" name="q4" value="0"> Biber</label>
+            </div>
+
+            <!-- BIOLOGIE - MULTIPLE CHOICE -->
+            <div class="question" data-type="multiple-choice" data-correct="2">
+                <p><strong>5. Welche soziale Rolle hat nur das dominante Paar in einem Wolfsrudel?</strong></p>
+                <label><input type="radio" name="q5" value="0"> Sie führen alle Jagden an</label>
+                <label><input type="radio" name="q5" value="0"> Sie sind älter als alle anderen</label>
+                <label><input type="radio" name="q5" value="1"> Nur sie pflanzen sich fort</label>
+            </div>
+
+            <!-- BIOLOGIE - MULTIPLE CHOICE -->
+            <div class="question" data-type="multiple-choice" data-correct="1">
+                <p><strong>6. Welche Geschwindigkeit kann ein Wolf erreichen?</strong></p>
+                <label><input type="radio" name="q6" value="0"> 40 km/h</label>
+                <label><input type="radio" name="q6" value="1"> 60 km/h</label>
+                <label><input type="radio" name="q6" value="0"> 80 km/h</label>
+            </div>
+
+            <!-- BIOLOGIE - WAHR/FALSCH -->
+            <div class="question true-false" data-type="true-false" data-correct="1">
+                <p><strong>7. Wölfe nutzen Heulen hauptsächlich zur Fernkommunikation zwischen Rudelmitgliedern.</strong></p>
+                <label><input type="radio" name="q7" value="1"> Wahr</label>
+                <label><input type="radio" name="q7" value="0"> Falsch</label>
+            </div>
+
+            <!-- GEOGRAPHIE/GESCHICHTE - MULTIPLE CHOICE -->
+            <div class="question" data-type="multiple-choice" data-correct="0">
+                <p><strong>8. Aus welchem Land wanderten die ersten Wölfe im Jahr 2000 wieder nach Deutschland ein?</strong></p>
+                <label><input type="radio" name="q8" value="1"> Polen</label>
+                <label><input type="radio" name="q8" value="0"> Frankreich</label>
+                <label><input type="radio" name="q8" value="0"> Tschechien</label>
+            </div>
+
+            <!-- GEOGRAPHIE - MULTIPLE CHOICE -->
+            <div class="question" data-type="multiple-choice" data-correct="1">
+                <p><strong>9. Wo bildete sich das erste Rudel der Wolfsrückkehr (2000)?</strong></p>
+                <label><input type="radio" name="q9" value="0"> In Brandenburg</label>
+                <label><input type="radio" name="q9" value="1"> In der Oberlausitz, Sachsen</label>
+                <label><input type="radio" name="q9" value="0"> In Schleswig-Holstein</label>
+            </div>
+
+            <!-- GEOGRAPHIE - KURZANTWORT -->
+            <div class="question short-answer" data-type="short-answer" data-correct="1814|1814-1820">
+                <p><strong>10. In welchem Jahrhundert begann die systematische Ausrottung der Wölfe in Deutschland? (Jahr oder Zeitspanne)</strong></p>
+                <input type="text" name="q10" placeholder="z.B. 1814 oder 1814-1820">
+            </div>
+
+            <!-- GESCHICHTE - MULTIPLE SELECT -->
+            <div class="question multiple-select" data-type="multiple-select" data-correct="0,1">
+                <p><strong>11. Welche Ereignisse gehören zum Wolfsmonitoring in der Rückkehrphase? (Mehrfache Antworten möglich)</strong></p>
+                <label><input type="checkbox" name="q11" value="1"> Wissenschaftliche Beobachtung der Population</label>
+                <label><input type="checkbox" name="q11" value="1"> Genetische Analysen von Wölfen</label>
+                <label><input type="checkbox" name="q11" value="0"> Aktive Jagd auf Wölfe</label>
+                <label><input type="checkbox" name="q11" value="0"> Verkauf von Wolfsfellen</label>
+            </div>
+
+            <!-- GESCHICHTE - WAHR/FALSCH -->
+            <div class="question true-false" data-type="true-false" data-correct="1">
+                <p><strong>12. Der Wolf "Einauge" (FT1) war der erste Wolf, der nach der Ausrottung wieder dauerhaft in Deutschland lebte und sich fortpflanzte.</strong></p>
+                <label><input type="radio" name="q12" value="1"> Wahr</label>
+                <label><input type="radio" name="q12" value="0"> Falsch</label>
+            </div>
+
+            <!-- GESCHICHTE - KURZANTWORT -->
+            <div class="question short-answer" data-type="short-answer" data-correct="2013">
+                <p><strong>13. In welchem Jahr starb der Wolf Einauge (FT1) durch einen illegalen Abschuss?</strong></p>
+                <input type="text" name="q13" placeholder="Bitte Jahr eingeben...">
+            </div>
+
+            <!-- STATISTIKEN - MULTIPLE CHOICE -->
+            <div class="question" data-type="multiple-choice" data-correct="0">
+                <p><strong>14. Wie viele Rudel gab es 2024 in Deutschland?</strong></p>
+                <label><input type="radio" name="q14" value="1"> 50 Rudel</label>
+                <label><input type="radio" name="q14" value="0"> 80 Rudel</label>
+                <label><input type="radio" name="q14" value="0"> 150 Rudel</label>
+            </div>
+
+            <!-- STATISTIKEN - KURZANTWORT -->
+            <div class="question short-answer" data-type="short-answer" data-correct="1000">
+                <p><strong>15. Wie viele individuelle Wölfe leben heute ungefähr in Deutschland?</strong></p>
+                <input type="text" name="q15" placeholder="Ungefähre Anzahl...">
+            </div>
+
+            <!-- ETHIK - MULTIPLE SELECT -->
+            <div class="question multiple-select" data-type="multiple-select" data-correct="0,1,2">
+                <p><strong>16. Welche Maßnahmen gibt es zum Schutz von Nutztieren vor Wölfen? (Mehrfache Antworten möglich)</strong></p>
+                <label><input type="checkbox" name="q16" value="1"> Elektrische Schutzzäune</label>
+                <label><input type="checkbox" name="q16" value="1"> Herdenschutzhunde</label>
+                <label><input type="checkbox" name="q16" value="1"> Nächtliches Einsperren von Herden</label>
+                <label><input type="checkbox" name="q16" value="0"> Wolfsjagd ohne Bedingungen</label>
+            </div>
+
+            <!-- ETHIK - WAHR/FALSCH -->
+            <div class="question true-false" data-type="true-false" data-correct="1">
+                <p><strong>17. Wölfe erhöhen durch ihre Regulation der Beute die Biodiversität und das Ökosystem-Gleichgewicht.</strong></p>
+                <label><input type="radio" name="q17" value="1"> Wahr</label>
+                <label><input type="radio" name="q17" value="0"> Falsch</label>
+            </div>
+
+            <!-- ALLGEMEIN - MATCHING -->
+            <div class="question" data-type="matching" data-correct="0:1990,1:1859,2:1950">
+                <p><strong>18. Ordne die Ereignisse den Jahreszahlen zu:</strong></p>
+                <div class="matching-container">
+                    <div class="matching-column">
+                        <h4>Ereignisse:</h4>
+                        <div class="matching-item">
+                            <span>Jahr der ersten Rückkehr von Wölfen</span>
+                            <select name="q18_0" data-id="0">
+                                <option value="">-- Wählen --</option>
+                                <option value="0">1859</option>
+                                <option value="1">1900</option>
+                                <option value="2">1950</option>
+                                <option value="3">1990</option>
+                            </select>
+                        </div>
+                        <div class="matching-item">
+                            <span>Beginn der massiven Ausrottung</span>
+                            <select name="q18_1" data-id="1">
+                                <option value="">-- Wählen --</option>
+                                <option value="0">1859</option>
+                                <option value="1">1900</option>
+                                <option value="2">1950</option>
+                                <option value="3">1990</option>
+                            </select>
+                        </div>
+                        <div class="matching-item">
+                            <span>Wolf wurde komplett ausgerottet</span>
+                            <select name="q18_2" data-id="2">
+                                <option value="">-- Wählen --</option>
+                                <option value="0">1859</option>
+                                <option value="1">1900</option>
+                                <option value="2">1950</option>
+                                <option value="3">1990</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="matching-column" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <h4>Jahreszahlen:</h4>
+                        <div style="padding: 1rem; text-align: center; background: white; border-radius: 4px; border-left: 3px solid var(--accent);">
+                            <p style="margin: 0; color: var(--dark-green); font-weight: 600;">1859 • 1900 • 1950 • 1990</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-btn-container" style="margin-top: 2rem;">
+                <button class="quiz-btn" onclick="evaluateQuiz()">Quiz auswerten</button>
+            </div>
+            
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        /* ========== INTRO ANIMATION - Multi-Phase System ========== */
+        let introCompleted = false;
+        
+        function completeIntro() {
+            if (introCompleted) return;
+            introCompleted = true;
+            
+            const intro = document.getElementById('introOverlay');
+            const heroContent = document.querySelector('.hero-content');
+            
+            // Fade out intro overlay
+            intro.classList.add('hidden');
+            
+            // Show hero content and unlock scroll after intro fade completes
+            setTimeout(() => {
+                heroContent.classList.add('visible');
+                unlockScroll();
+                // Smooth scroll to biologie section
+                const target = document.getElementById('biologie');
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }, 600);
+        }
+
+        // Initialize: lock scroll on load
+        window.addEventListener('load', function() {
+            lockScroll();
+        });
+
+        function lockScroll() {
+            document.documentElement.classList.add('locked');
+            document.body.classList.add('locked');
+            const lockOverlay = document.getElementById('interactionLock');
+            if (lockOverlay) lockOverlay.classList.add('active');
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function unlockScroll() {
+            document.documentElement.classList.remove('locked');
+            document.body.classList.remove('locked');
+            const lockOverlay = document.getElementById('interactionLock');
+            if (lockOverlay) lockOverlay.classList.remove('active');
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+        }
+
+        function scrollToQuellen(event) {
+            event.preventDefault();
+            const target = document.getElementById('quellen');
+            if (target) {
+                // expand the hidden Quellen list and scroll to it
+                target.classList.add('expanded');
+                // ensure fade-in parent becomes visible immediately
+                target.classList.add('visible');
+                target.scrollIntoView({ behavior: 'smooth' });
+                // move focus to the list for accessibility
+                const list = target.querySelector('.quellen-list');
+                if (list) {
+                    list.setAttribute('tabindex', '-1');
+                    // force inline styles so it's visible even if transitions fail
+                    list.style.maxHeight = list.scrollHeight + 'px';
+                    list.style.opacity = '1';
+                    list.style.overflow = 'visible';
+                }
+                setTimeout(() => { if (list) list.focus(); }, 600);
+            }
+        }
+
+        function toggleQuellenSection(event) {
+            const section = document.getElementById('quellen');
+            if (!section) return;
+            section.classList.toggle('expanded');
+            const list = section.querySelector('.quellen-list');
+            if (section.classList.contains('expanded')) {
+                section.classList.add('visible');
+                if (list) {
+                    list.setAttribute('tabindex', '-1');
+                    list.style.maxHeight = list.scrollHeight + 'px';
+                    list.style.opacity = '1';
+                    list.style.overflow = 'visible';
+                }
+                setTimeout(() => { if (list) list.focus(); }, 300);
+            } else {
+                if (list) {
+                    list.style.maxHeight = '0';
+                    list.style.opacity = '0';
+                    list.style.overflow = 'hidden';
+                }
+            }
+        }
+
+        /* ========== SCROLL PROGRESS BAR ========== */
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+
+            // Header scroll effect
+            const header = document.getElementById('header');
+            if (scrollTop > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        /* ========== ACCORDION ========== */
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const isActive = content.classList.contains('active');
+            
+            document.querySelectorAll('.accordion-content.active').forEach(item => {
+                item.classList.remove('active');
+                item.previousElementSibling.classList.remove('active');
+            });
+            
+            if (!isActive) {
+                content.classList.add('active');
+                button.classList.add('active');
+            }
+        }
+
+        /* ========== SCROLL ANIMATIONS (IntersectionObserver) ========== */
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        /* ========== COUNTER ANIMATION (Statistiken) ========== */
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(interval);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.hasAttribute('data-animated')) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target, 2000);
+                    entry.target.setAttribute('data-animated', 'true');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(el => {
+            statsObserver.observe(el);
+        });
+
+        /* ========== ERWEITERTE QUIZ-FUNKTIONEN ========== */
+        function openQuiz() {
+            document.getElementById('quizModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            updateProgressBar();
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            // Reset all input types
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+            document.querySelectorAll('input[type="text"]').forEach(text => text.value = '');
+            document.querySelectorAll('select').forEach(select => select.value = '');
+            document.getElementById('result').innerText = '';
+            document.getElementById('result').classList.remove('show');
+            document.getElementById('progressBar').style.width = '0%';
+            document.querySelectorAll('.question-feedback').forEach(fb => fb.remove());
+        }
+
+        function updateProgressBar() {
+            const totalQuestions = 18;
+            const answered = document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked, input[type="text"]:not([value=""]), select:not([value=""])').length;
+            const progress = (answered / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        document.addEventListener('change', updateProgressBar);
+        document.addEventListener('input', updateProgressBar);
+
+        function evaluateQuiz() {
+            let points = 0;
+            const totalQuestions = 18;
+            const questions = document.querySelectorAll('.question');
+            let allAnswered = true;
+
+            questions.forEach((question, index) => {
+                const type = question.getAttribute('data-type');
+                const questionNum = index + 1;
+                let isCorrect = false;
+
+                // Remove old feedback
+                const oldFeedback = question.querySelector('.question-feedback');
+                if (oldFeedback) oldFeedback.remove();
+
+                if (type === 'multiple-choice') {
+                    const checked = question.querySelector('input[type="radio"]:checked');
+                    if (!checked) {
+                        allAnswered = false;
+                        return;
+                    }
+                    const correct = question.getAttribute('data-correct');
+                    if (checked.value === correct) {
+                        isCorrect = true;
+                        points++;
+                    }
+                } 
+                else if (type === 'true-false') {
+                    const checked = question.querySelector('input[type="radio"]:checked');
+                    if (!checked) {
+                        allAnswered = false;
+                        return;
+                    }
+                    const correct = question.getAttribute('data-correct');
+                    if (checked.value === correct) {
+                        isCorrect = true;
+                        points++;
+                    }
+                }
+                else if (type === 'multiple-select') {
+                    const checkboxes = question.querySelectorAll('input[type="checkbox"]');
+                    let checked = false;
+                    checkboxes.forEach(cb => { if (cb.checked) checked = true; });
+                    if (!checked) {
+                        allAnswered = false;
+                        return;
+                    }
+
+                    const correctAnswers = question.getAttribute('data-correct').split(',');
+                    const selectedAnswers = Array.from(checkboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.value);
+
+                    if (selectedAnswers.length === correctAnswers.length &&
+                        selectedAnswers.every(val => correctAnswers.includes(val))) {
+                        isCorrect = true;
+                        points++;
+                    }
+                }
+                else if (type === 'short-answer') {
+                    const input = question.querySelector('input[type="text"]');
+                    const userAnswer = input.value.trim().toLowerCase();
+                    
+                    if (!userAnswer) {
+                        allAnswered = false;
+                        return;
+                    }
+
+                    const correctAnswers = question.getAttribute('data-correct').split('|');
+                    if (correctAnswers.some(correct => userAnswer === correct.toLowerCase())) {
+                        isCorrect = true;
+                        points++;
+                    }
+                }
+                else if (type === 'matching') {
+                    const selects = question.querySelectorAll('select');
+                    let answered = true;
+                    selects.forEach(select => { if (!select.value) answered = false; });
+                    if (!answered) {
+                        allAnswered = false;
+                        return;
+                    }
+
+                    const correct = question.getAttribute('data-correct').split(',');
+                    let allCorrect = true;
+                    selects.forEach((select, idx) => {
+                        const answer = select.getAttribute('data-id') + ':' + select.value;
+                        if (!correct.includes(answer)) allCorrect = false;
+                    });
+
+                    if (allCorrect) {
+                        isCorrect = true;
+                        points++;
+                    }
+                }
+
+                // Add feedback
+                const feedback = document.createElement('div');
+                feedback.className = 'question-feedback ' + (isCorrect ? 'correct' : 'incorrect');
+                feedback.innerHTML = isCorrect ? '✓ Korrekt!' : '✗ Leider falsch.';
+                question.appendChild(feedback);
+            });
+
+            const progress = (points / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            const result = document.getElementById('result');
+
+            if (!allAnswered) {
+                result.innerText = '⚠️ Bitte beantworte alle Fragen bevor du das Quiz auswertest!';
+                result.style.color = '#e74c3c';
+                result.classList.add('show');
+                return;
+            }
+
+            let message = '';
+            let emoji = '';
+            
+            if (points === totalQuestions) {
+                message = 'PERFEKT! 🎉 Du bist ja ein absoluter Wolf-Experte!';
+                emoji = '🐺';
+            } else if (points >= 16) {
+                message = 'Ausgezeichnet! Du kennst die Wölfe sehr gut!';
+                emoji = '⭐';
+            } else if (points >= 13) {
+                message = 'Sehr gut! Solides Wissen über Wölfe!';
+                emoji = '👍';
+            } else if (points >= 10) {
+                message = 'Gute Leistung! Aber es gibt noch viel zu lernen!';
+                emoji = '📚';
+            } else if (points >= 7) {
+                message = 'Anfang gemacht! Lies nochmal die Infos durch!';
+                emoji = '🤔';
+            } else {
+                message = 'Viel Potenzial! Nochmal durchlesen empfohlen!';
+                emoji = '💪';
+            }
+
+            result.innerHTML = `<strong>${emoji} ${message}</strong><br>Du hast <strong>${points} von ${totalQuestions}</strong> Punkten erreicht (${Math.round(progress)}%)`;
+            result.classList.add('show');
+            
+            document.getElementById('currentQuestion').textContent = points;
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('quizModal');
+            if (event.target == modal) {
+                closeQuiz();
+            }
+        }
+    </script>
+
+    <!-- ========== QUELLEN ========== -->
+    <section id="quellen" class="quellen fade-in">
+        <div class="container">
+            <h2>Quellen</h2>
+            <ul class="quellen-list">
+                <li>
+                    <div class="source-title">Bundesamt für Naturschutz (BfN) — Wolfsmonitoring</div>
+                    <div class="source-desc">Wolfsmonitoring – Jahresberichte und offizielle Monitoring-Daten.</div>
+                    <a href="https://www.bfn.de/themen/monitoring/wolf" target="_blank" rel="noopener">https://www.bfn.de/themen/monitoring/wolf</a>
+                </li>
+                <li>
+                    <div class="source-title">DBBW — Dokumentations- und Beratungsstelle des Bundes zum Thema Wolf</div>
+                    <div class="source-desc">Offizielle Daten zu Wolfszahlen und Rudeln in Deutschland.</div>
+                    <a href="https://www.dbb-wolf.de" target="_blank" rel="noopener">https://www.dbb-wolf.de</a>
+                </li>
+                <li>
+                    <div class="source-title">Deutscher Tierschutzbund</div>
+                    <div class="source-desc">Informationsseite: Hintergrundinformationen zum Wolf in Deutschland.</div>
+                    <a href="https://www.tierschutzbund.de/tiere-themen/wildtiere/wolf/" target="_blank" rel="noopener">https://www.tierschutzbund.de/tiere-themen/wildtiere/wolf/</a>
+                </li>
+                <li>
+                    <div class="source-title">WWF Deutschland</div>
+                    <div class="source-desc">Artenschutzinformationen und Projektseiten zum Wolf.</div>
+                    <a href="https://www.wwf.de/themen-projekte/tiere/wolf" target="_blank" rel="noopener">https://www.wwf.de/themen-projekte/tiere/wolf</a>
+                </li>
+                <li>
+                    <div class="source-title">NABU Deutschland</div>
+                    <div class="source-desc">Fachartikel: „Die Rückkehr der Wölfe“ und weiterführende Informationen.</div>
+                    <a href="https://www.nabu.de/tiere-und-pflanzen/saeugetiere/wolf/" target="_blank" rel="noopener">https://www.nabu.de/tiere-und-pflanzen/saeugetiere/wolf/</a>
+                </li>
+                <li>
+                    <div class="source-title">BMUV — Bundesministerium für Umwelt</div>
+                    <div class="source-desc">Rechtlicher Schutzstatus des Wolfes (FFH-Richtlinie) und politische Rahmeninformationen.</div>
+                    <a href="https://www.bmuv.de/themen/natur-arten/naturschutz/wildtiermanagement/wolf" target="_blank" rel="noopener">https://www.bmuv.de/themen/natur-arten/naturschutz/wildtiermanagement/wolf</a>
+                </li>
+                <li>
+                    <div class="source-title">Literatur</div>
+                    <div class="source-desc">Müller, A. (2018): Wölfe in Europa – Biologie, Verhalten, Schutz. Springer Verlag.</div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container" style="text-align:center;">
+            &copy; 2026 Wolf-Projekt — Lehrprojekt. <a href="#quellen" onclick="scrollToQuellen(event)">Quellen</a>
+        </div>
+    </footer>
+
+</body>
+</html>
